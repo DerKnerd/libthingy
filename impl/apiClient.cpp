@@ -13,10 +13,12 @@ nlohmann::json thingy::ThingiverseClient::sendRequest(const std::string &path) {
 nlohmann::json
 thingy::ThingiverseClient::sendRequest(const std::string &path, const std::map<std::string, std::string> &queryParams) {
     auto client = httplib::Client("https://api.thingiverse.com");
+    client.set_read_timeout(5 * 60);
+    client.set_connection_timeout(5 * 60);
     auto queryParamsIncludingAccessToken = std::map<std::string, std::string>(queryParams);
     queryParamsIncludingAccessToken["access_token"] = apiKey;
     auto mappedQueryParams = std::string("");
-    for (const auto& item: queryParamsIncludingAccessToken) {
+    for (const auto &item: queryParamsIncludingAccessToken) {
         mappedQueryParams += item.first + "=" + item.second + "&";
     }
 

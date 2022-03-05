@@ -7,20 +7,20 @@
 
 int main(int argc, char *argv[]) {
     auto client = thingy::ThingiverseClient(API_KEY);
-    auto thing = client.getThing(763622);
+    auto thing = client.getThing(2064029);
 
-    if (thing.id != 763622) { return 1; }
-    if (thing.name.length() == 0) { return 1; }
-    if (thing.added.length() == 0) { return 1; }
-    if (thing.thumbnail.length() == 0) { return 1; }
-    if (thing.publicUrl.length() == 0) { return 1; }
-    if (thing.added.length() == 0) { return 1; }
-    if (thing.modified.length() == 0) { return 1; }
+    if (thing.id != 2064029) { return 1; }
+    if (thing.name.empty()) { return 1; }
+    if (thing.added.empty()) { return 1; }
+    if (thing.thumbnail.empty()) { return 1; }
+    if (thing.publicUrl.empty()) { return 1; }
+    if (thing.added.empty()) { return 1; }
+    if (thing.modified.empty()) { return 1; }
     if (thing.likeCount == 0) { return 1; }
     if (thing.collectCount == 0) { return 1; }
     if (thing.commentCount == 0) { return 1; }
-    if (thing.description.length() == 0) { return 1; }
-    if (thing.license.length() == 0) { return 1; }
+    if (thing.description.empty()) { return 1; }
+    if (thing.license.empty()) { return 1; }
     if (thing.fileCount == 0) { return 1; }
     if (thing.downloadCount == 0) { return 1; }
     if (thing.viewCount == 0) { return 1; }

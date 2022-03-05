@@ -11,10 +11,10 @@ int main(int argc, char *argv[]) {
 
     auto thing = things[0];
     if (thing.id != 5242411) { return 1; }
-    if (thing.name.length() == 0) { return 1; }
-    if (thing.added.length() == 0) { return 1; }
-    if (thing.thumbnail.length() == 0) { return 1; }
-    if (thing.publicUrl.length() == 0) { return 1; }
+    if (thing.name.empty()) { return 1; }
+    if (thing.added.empty()) { return 1; }
+    if (thing.thumbnail.empty()) { return 1; }
+    if (thing.publicUrl.empty()) { return 1; }
     if (thing.likeCount == 0) { return 1; }
     if (thing.commentCount == 0) { return 1; }
     if (thing.makeCount != 0) { return 1; }

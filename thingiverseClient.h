@@ -11,6 +11,7 @@
 #include <httplib/httplib.h>
 #include <nlohmann/json.hpp>
 #include "entities/Thing.h"
+#include "entities/Image.h"
 
 namespace thingy {
     enum SortThingsBy {
@@ -44,6 +45,8 @@ namespace thingy {
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
         std::vector<entities::Thing> getThingDerivatives(unsigned long long thingId);
+
+        std::vector<entities::Image> getImagesByThing(unsigned long long thingId);
 
     private:
         std::string apiKey;
