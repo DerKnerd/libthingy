@@ -33,6 +33,8 @@ namespace thingy {
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
+        std::vector<entities::Thing> getThingDerivatives(unsigned long long thingId);
+
     private:
         std::string apiKey;
 
