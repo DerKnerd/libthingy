@@ -13,6 +13,14 @@
 #include "entities/Thing.h"
 
 namespace thingy {
+    enum SortThingsBy {
+        Relevant,
+        Text,
+        Popular,
+        Makes,
+        Newest
+    };
+
     class ThingiverseException : public std::exception {
     public:
         explicit ThingiverseException(std::string cause);
@@ -29,7 +37,9 @@ namespace thingy {
 
         entities::Thing getThing(unsigned long long thingId);
 
-        std::vector<entities::Thing> getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string& keyword = "");
+        std::vector<entities::Thing>
+        getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string &keyword = "",
+                  const SortThingsBy &sortBy = SortThingsBy::Relevant);
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 

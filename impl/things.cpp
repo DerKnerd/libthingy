@@ -11,7 +11,8 @@ thingy::entities::Thing thingy::ThingiverseClient::getThing(unsigned long long t
 
 
 std::vector<thingy::entities::Thing>
-thingy::ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword) {
+thingy::ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
+                                     const SortThingsBy &sortBy) {
     if (page == 0) {
         page = 1;
     }
@@ -19,11 +20,30 @@ thingy::ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPa
         thingsPerPage = 1;
     }
 
-    auto json = sendRequest("search/" + keyword, {
+    std::map<std::string, std::string> parameters = {
             {"page",     std::to_string(page)},
             {"per_page", std::to_string(thingsPerPage)},
             {"type",     "things"}
-    });
+    };
+    switch (sortBy) {
+        case SortThingsBy::Relevant:
+            parameters["sort"] = "relevant";
+            break;
+        case SortThingsBy::Text:
+            parameters["sort"] = "text";
+            break;
+        case SortThingsBy::Popular:
+            parameters["sort"] = "popular";
+            break;
+        case SortThingsBy::Makes:
+            parameters["sort"] = "makes";
+            break;
+        case SortThingsBy::Newest:
+            parameters["sort"] = "newest";
+            break;
+    }
+
+    auto json = sendRequest("search/" + keyword, parameters);
 
     auto result = std::vector<thingy::entities::Thing>();
     for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
