@@ -7,10 +7,10 @@
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
 
-#include "entities/Thing.h"
 #include <utility>
 #include <httplib/httplib.h>
 #include <nlohmann/json.hpp>
+#include "entities/Thing.h"
 
 namespace thingy {
     class ThingiverseException : public std::exception {
@@ -29,7 +29,7 @@ namespace thingy {
 
         entities::Thing getThing(long long thingId);
 
-        std::vector<entities::Thing> getThings(int page);
+        std::vector<entities::Thing> getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string& keyword = "");
 
     private:
         std::string apiKey;

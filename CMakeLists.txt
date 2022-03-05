@@ -36,8 +36,12 @@ add_library(libthingy ${SOURCES})
 add_library(libthingy::libthingy ALIAS libthingy)
 
 add_executable(libthingy_test_get_thing ${SOURCES} tests/testGetThing.cpp)
+add_executable(libthingy_test_get_things ${SOURCES} tests/testGetThings.cpp)
 
 add_test(NAME libthingy_test_get_thing COMMAND libthingy_test_get_thing)
+add_test(NAME libthingy_test_get_things COMMAND libthingy_test_get_things)
 
 target_link_libraries(libthingy PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+
 target_link_libraries(libthingy_test_get_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy_test_get_things PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
