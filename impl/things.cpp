@@ -4,7 +4,7 @@
 
 #include "../thingiverseClient.h"
 
-thingy::entities::Thing thingy::ThingiverseClient::getThing(long long thingId) {
+thingy::entities::Thing thingy::ThingiverseClient::getThing(unsigned long long thingId) {
     auto json = sendRequest("things/" + std::to_string(thingId));
     return thingy::entities::Thing::fromJson(json);
 }
@@ -27,6 +27,17 @@ thingy::ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPa
 
     auto result = std::vector<thingy::entities::Thing>();
     for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(thingy::entities::Thing::fromSearchJson(item));
+    }
+
+    return result;
+}
+
+std::vector<thingy::entities::Thing> thingy::ThingiverseClient::getThingAncestors(unsigned long long int thingId) {
+    auto json = sendRequest("things/" + std::to_string(thingId) + "/ancestors");
+
+    auto result = std::vector<thingy::entities::Thing>();
+    for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
         result.emplace_back(thingy::entities::Thing::fromSearchJson(item));
     }
 

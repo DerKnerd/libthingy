@@ -11,22 +11,22 @@
 namespace thingy::entities {
     class Thing {
     public:
-        long long id;
+        unsigned long long id;
         std::string name;
         std::string thumbnail;
         std::string publicUrl;
         std::string added;
         std::string modified;
         bool isWip;
-        long long likeCount;
-        long long collectCount;
-        long long commentCount;
+        unsigned long long likeCount;
+        unsigned long long collectCount;
+        unsigned long long commentCount;
         std::string description;
         std::string license;
-        long fileCount;
-        long long downloadCount;
-        long long viewCount;
-        long makeCount;
+        unsigned long fileCount;
+        unsigned long long downloadCount;
+        unsigned long long viewCount;
+        unsigned long long makeCount;
         bool allowDerivatives;
 
         static Thing fromJson(const nlohmann::json &json);

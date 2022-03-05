@@ -27,9 +27,11 @@ namespace thingy {
     public:
         explicit ThingiverseClient(std::string apiKey);
 
-        entities::Thing getThing(long long thingId);
+        entities::Thing getThing(unsigned long long thingId);
 
         std::vector<entities::Thing> getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string& keyword = "");
+
+        std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
     private:
         std::string apiKey;
