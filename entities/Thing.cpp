@@ -28,6 +28,7 @@ Thing Thing::fromJson(const nlohmann::json &json) {
     thing.makeCount = json["make_count"];
     thing.allowDerivatives = json["allows_derivatives"];
     thing.defaultImage = Image::fromJson(json["default_image"]);
+    thing.creator = User::fromCreatorJson(json["creator"]);
 
     for (const auto &item: json["details_parts"].get<std::vector<nlohmann::json>>()) {
         if (item["type"] == "settings" && !item["data"].empty()) {

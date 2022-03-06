@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include "Image.h"
+#include "User.h"
 
 namespace thingy::entities {
     class DetailsTextPart {
@@ -52,6 +53,7 @@ namespace thingy::entities {
         std::vector<DetailsTextPart> details;
         PrinterSettings printerSettings;
         Image defaultImage;
+        User creator;
 
         static Thing fromJson(const nlohmann::json &json);
 
