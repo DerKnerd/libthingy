@@ -13,6 +13,7 @@
 #include "entities/Thing.h"
 #include "entities/Image.h"
 #include "entities/File.h"
+#include "entities/Category.h"
 
 namespace thingy {
     enum SortThingsBy {
@@ -50,6 +51,8 @@ namespace thingy {
         std::vector<entities::Image> getImagesByThing(unsigned long long thingId);
 
         std::vector<entities::File> getFilesByThing(unsigned long long thingId);
+
+        std::vector<entities::Category> getCategoriesByThing(unsigned long long thingId);
 
     private:
         std::string apiKey;

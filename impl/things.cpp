@@ -99,3 +99,14 @@ std::vector<File> ThingiverseClient::getFilesByThing(unsigned long long thingId)
 
     return result;
 }
+
+std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long thingId) {
+    auto json = sendRequest("things/" + std::to_string(thingId) + "/categories");
+
+    auto result = std::vector<Category>();
+    for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(Category::fromThingJson(item));
+    }
+
+    return result;
+}
