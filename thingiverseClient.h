@@ -44,6 +44,10 @@ namespace thingy {
         getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string &keyword = "",
                   const SortThingsBy &sortBy = SortThingsBy::Relevant);
 
+        std::vector<entities::Thing>
+        getThingByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
+                           const std::string &keyword = "", const SortThingsBy &sortBy = SortThingsBy::Relevant);
+
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
         std::vector<entities::Thing> getThingDerivatives(unsigned long long thingId);
@@ -60,6 +64,10 @@ namespace thingy {
         nlohmann::json sendRequest(const std::string &path);
 
         nlohmann::json sendRequest(const std::string &path, const std::map<std::string, std::string> &queryParams);
+
+        std::vector<entities::Thing>
+        getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
+                          const SortThingsBy &sortBy, bool hasCategory, unsigned long long categoryId);
     };
 }
 #endif //LIBTHINGY_THINGIVERSECLIENT_H

@@ -7,6 +7,7 @@ add_executable(libthingy_test_get_thing_derivatives ${SOURCES} tests/testGetThin
 add_executable(libthingy_test_get_images_by_thing ${SOURCES} tests/testGetImagesByThing.cpp)
 add_executable(libthingy_test_get_files_by_thing ${SOURCES} tests/testGetFilesByThing.cpp)
 add_executable(libthingy_test_get_categories_by_thing ${SOURCES} tests/testGetCategoriesByThing.cpp)
+add_executable(libthingy_test_get_things_by_category ${SOURCES} tests/testGetThingsByCategory.cpp)
 
 add_test(NAME libthingy_test_get_thing COMMAND libthingy_test_get_thing)
 add_test(NAME libthingy_test_get_things COMMAND libthingy_test_get_things)
@@ -15,6 +16,7 @@ add_test(NAME libthingy_test_get_thing_derivatives COMMAND libthingy_test_get_th
 add_test(NAME libthingy_test_get_images_by_thing COMMAND libthingy_test_get_images_by_thing)
 add_test(NAME libthingy_test_get_files_by_thing COMMAND libthingy_test_get_files_by_thing)
 add_test(NAME libthingy_test_get_categories_by_thing COMMAND libthingy_test_get_categories_by_thing)
+add_test(NAME libthingy_test_get_things_by_category COMMAND libthingy_test_get_things_by_category)
 
 target_link_libraries(libthingy_test_get_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_things PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
@@ -23,3 +25,4 @@ target_link_libraries(libthingy_test_get_thing_derivatives PUBLIC OpenSSL::SSL h
 target_link_libraries(libthingy_test_get_images_by_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_files_by_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_categories_by_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy_test_get_things_by_category PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)

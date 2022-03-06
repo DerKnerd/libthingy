@@ -9,6 +9,7 @@ thingy::entities::Category thingy::entities::Category::fromThingJson(const nlohm
     category.name = json["name"];
     category.count = json["count"];
     category.slug = json["slug"];
+    category.id = json["id"];
 
     return category;
 }

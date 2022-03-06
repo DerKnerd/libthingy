@@ -12,50 +12,6 @@ Thing ThingiverseClient::getThing(unsigned long long thingId) {
     return Thing::fromJson(json);
 }
 
-
-std::vector<Thing>
-ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                             const SortThingsBy &sortBy) {
-    if (page == 0) {
-        page = 1;
-    }
-    if (thingsPerPage == 0) {
-        thingsPerPage = 1;
-    }
-
-    std::map<std::string, std::string> parameters = {
-            {"page",     std::to_string(page)},
-            {"per_page", std::to_string(thingsPerPage)},
-            {"type",     "things"}
-    };
-    switch (sortBy) {
-        case SortThingsBy::Relevant:
-            parameters["sort"] = "relevant";
-            break;
-        case SortThingsBy::Text:
-            parameters["sort"] = "text";
-            break;
-        case SortThingsBy::Popular:
-            parameters["sort"] = "popular";
-            break;
-        case SortThingsBy::Makes:
-            parameters["sort"] = "makes";
-            break;
-        case SortThingsBy::Newest:
-            parameters["sort"] = "newest";
-            break;
-    }
-
-    auto json = sendRequest("search/" + keyword, parameters);
-
-    auto result = std::vector<Thing>();
-    for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Thing::fromSearchJson(item));
-    }
-
-    return result;
-}
-
 std::vector<Thing> ThingiverseClient::getThingAncestors(unsigned long long int thingId) {
     auto json = sendRequest("things/" + std::to_string(thingId) + "/ancestors");
 
@@ -109,4 +65,63 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
     }
 
     return result;
+}
+
+std::vector<Thing>
+ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
+                                     const SortThingsBy &sortBy, bool hasCategory, unsigned long long categoryId) {
+    if (page == 0) {
+        page = 1;
+    }
+    if (thingsPerPage == 0) {
+        thingsPerPage = 1;
+    }
+
+    std::map<std::string, std::string> parameters = {
+            {"page",     std::to_string(page)},
+            {"per_page", std::to_string(thingsPerPage)},
+            {"type",     "things"}
+    };
+    if (hasCategory) {
+        parameters["category_id"] = categoryId;
+    }
+    switch (sortBy) {
+        case Relevant:
+            parameters["sort"] = "relevant";
+            break;
+        case Text:
+            parameters["sort"] = "text";
+            break;
+        case Popular:
+            parameters["sort"] = "popular";
+            break;
+        case Makes:
+            parameters["sort"] = "makes";
+            break;
+        case Newest:
+            parameters["sort"] = "newest";
+            break;
+    }
+
+    auto json = sendRequest("search/" + keyword, parameters);
+
+    auto result = std::vector<Thing>();
+    for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(Thing::fromSearchJson(item));
+    }
+
+    return result;
+}
+
+std::vector<Thing>
+ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
+                             const SortThingsBy &sortBy) {
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0);
+
+}
+
+std::vector<entities::Thing>
+ThingiverseClient::getThingByCategory(unsigned long long categoryId, unsigned int page, unsigned int thingsPerPage,
+                                      const std::string &keyword, const SortThingsBy &sortBy) {
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId);
 }

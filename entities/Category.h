@@ -14,6 +14,7 @@ namespace thingy::entities {
         std::string name;
         std::string slug;
         unsigned long long count;
+        unsigned long long id;
 
         static Category fromThingJson(const nlohmann::json &json);
     };
