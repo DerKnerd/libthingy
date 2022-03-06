@@ -12,6 +12,7 @@
 #include <nlohmann/json.hpp>
 #include "entities/Thing.h"
 #include "entities/Image.h"
+#include "entities/File.h"
 
 namespace thingy {
     enum SortThingsBy {
@@ -47,6 +48,8 @@ namespace thingy {
         std::vector<entities::Thing> getThingDerivatives(unsigned long long thingId);
 
         std::vector<entities::Image> getImagesByThing(unsigned long long thingId);
+
+        std::vector<entities::File> getFilesByThing(unsigned long long thingId);
 
     private:
         std::string apiKey;

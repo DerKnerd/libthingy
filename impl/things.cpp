@@ -28,23 +28,23 @@ ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, cons
             {"per_page", std::to_string(thingsPerPage)},
             {"type",     "things"}
     };
-//    switch (sortBy) {
-//        case SortThingsBy::Relevant:
-//            parameters["sort"] = "relevant";
-//            break;
-//        case SortThingsBy::Text:
-//            parameters["sort"] = "text";
-//            break;
-//        case SortThingsBy::Popular:
-//            parameters["sort"] = "popular";
-//            break;
-//        case SortThingsBy::Makes:
-//            parameters["sort"] = "makes";
-//            break;
-//        case SortThingsBy::Newest:
-//            parameters["sort"] = "newest";
-//            break;
-//    }
+    switch (sortBy) {
+        case SortThingsBy::Relevant:
+            parameters["sort"] = "relevant";
+            break;
+        case SortThingsBy::Text:
+            parameters["sort"] = "text";
+            break;
+        case SortThingsBy::Popular:
+            parameters["sort"] = "popular";
+            break;
+        case SortThingsBy::Makes:
+            parameters["sort"] = "makes";
+            break;
+        case SortThingsBy::Newest:
+            parameters["sort"] = "newest";
+            break;
+    }
 
     auto json = sendRequest("search/" + keyword, parameters);
 
@@ -84,6 +84,17 @@ std::vector<Image> ThingiverseClient::getImagesByThing(unsigned long long thingI
     auto result = std::vector<Image>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
         result.emplace_back(Image::fromJson(item));
+    }
+
+    return result;
+}
+
+std::vector<File> ThingiverseClient::getFilesByThing(unsigned long long thingId) {
+    auto json = sendRequest("things/" + std::to_string(thingId) + "/files");
+
+    auto result = std::vector<File>();
+    for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(File::fromJson(item));
     }
 
     return result;
