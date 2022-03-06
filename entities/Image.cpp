@@ -2,10 +2,10 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "Image.h"
+#include "../libthingy.h"
 
-thingy::entities::ImageSize thingy::entities::ImageSize::fromJson(const nlohmann::json &json) {
-    auto imageSize = ImageSize();
+thingy::entities::ImageSize thingy::ThingiverseClient::imageSizeFromJson(const nlohmann::json &json) {
+    auto imageSize = thingy::entities::ImageSize();
     imageSize.size = json["size"];
     imageSize.type = json["type"];
     imageSize.url = json["url"];
@@ -13,13 +13,13 @@ thingy::entities::ImageSize thingy::entities::ImageSize::fromJson(const nlohmann
     return imageSize;
 }
 
-thingy::entities::Image thingy::entities::Image::fromJson(const nlohmann::json &json) {
-    auto image = Image();
+thingy::entities::Image thingy::ThingiverseClient::imageFromJson(const nlohmann::json &json) {
+    auto image = thingy::entities::Image();
     image.url = json["url"];
     image.name = json["name"];
     image.id = json["id"];
     for (const auto& size: json["sizes"].get<std::vector<nlohmann::json>>()) {
-        image.sizes.emplace_back(ImageSize::fromJson(size));
+        image.sizes.emplace_back(imageSizeFromJson(size));
     }
 
     return image;

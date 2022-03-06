@@ -30,7 +30,7 @@ find_package(nlohmann_json)
 find_package(httplib)
 find_package(OpenSSL)
 
-file(GLOB SOURCES thingiverseClient.h thingiverseClient.cpp helper.cpp impl/*.cpp entities/*.cpp)
+file(GLOB SOURCES thingiverseClient.h thingiverseClient.cpp impl/helper.cpp impl/*.cpp entities/*.cpp)
 
 add_library(libthingy ${SOURCES})
 add_library(libthingy::libthingy ALIAS libthingy)

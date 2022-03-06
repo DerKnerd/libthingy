@@ -2,7 +2,7 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "thingiverseClient.h"
+#include "libthingy.h"
 
 namespace thingy {
     const char *ThingiverseException::what() const noexcept {

@@ -2,14 +2,14 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "../thingiverseClient.h"
+#include "../libthingy.h"
 
 using namespace thingy;
 using namespace entities;
 
 Thing ThingiverseClient::getThing(unsigned long long thingId) {
     auto json = sendRequest("things/" + std::to_string(thingId));
-    return Thing::fromJson(json);
+    return thingFromJson(json);
 }
 
 std::vector<Thing> ThingiverseClient::getThingAncestors(unsigned long long int thingId) {
@@ -17,7 +17,7 @@ std::vector<Thing> ThingiverseClient::getThingAncestors(unsigned long long int t
 
     auto result = std::vector<Thing>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Thing::fromSearchJson(item));
+        result.emplace_back(thingFromSearchJson(item));
     }
 
     return result;
@@ -28,7 +28,7 @@ std::vector<Thing> ThingiverseClient::getThingDerivatives(unsigned long long int
 
     auto result = std::vector<Thing>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Thing::fromSearchJson(item));
+        result.emplace_back(thingFromSearchJson(item));
     }
 
     return result;
@@ -39,7 +39,7 @@ std::vector<Image> ThingiverseClient::getImagesByThing(unsigned long long thingI
 
     auto result = std::vector<Image>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Image::fromJson(item));
+        result.emplace_back(imageFromJson(item));
     }
 
     return result;
@@ -50,7 +50,7 @@ std::vector<File> ThingiverseClient::getFilesByThing(unsigned long long thingId)
 
     auto result = std::vector<File>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(File::fromJson(item));
+        result.emplace_back(fileFromJson(item));
     }
 
     return result;
@@ -61,7 +61,7 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
 
     auto result = std::vector<Category>();
     for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Category::fromThingJson(item));
+        result.emplace_back(categoryFromThingJson(item));
     }
 
     return result;
@@ -83,7 +83,7 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
             {"type",     "things"}
     };
     if (hasCategory) {
-        parameters["category_id"] = categoryId;
+        parameters["category_id"] = std::to_string(categoryId);
     }
     switch (sortBy) {
         case Relevant:
@@ -107,7 +107,7 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
 
     auto result = std::vector<Thing>();
     for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
-        result.emplace_back(Thing::fromSearchJson(item));
+        result.emplace_back(thingFromSearchJson(item));
     }
 
     return result;

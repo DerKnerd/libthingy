@@ -2,13 +2,13 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "Thing.h"
+#include "../libthingy.h"
 #include "../helper.h"
 
 using namespace thingy;
 using namespace entities;
 
-Thing Thing::fromJson(const nlohmann::json &json) {
+Thing ThingiverseClient::thingFromJson(const nlohmann::json &json) {
     auto thing = Thing();
     thing.id = json["id"];
     thing.name = json["name"];
@@ -27,24 +27,24 @@ Thing Thing::fromJson(const nlohmann::json &json) {
     thing.viewCount = json["view_count"];
     thing.makeCount = json["make_count"];
     thing.allowDerivatives = json["allows_derivatives"];
-    thing.defaultImage = Image::fromJson(json["default_image"]);
-    thing.creator = User::fromCreatorJson(json["creator"]);
+    thing.defaultImage = ThingiverseClient::imageFromJson(json["default_image"]);
+    thing.creator = ThingiverseClient::userFromCreatorJson(json["creator"]);
 
     for (const auto &item: json["details_parts"].get<std::vector<nlohmann::json>>()) {
         if (item["type"] == "settings" && !item["data"].empty()) {
             auto data = item["data"].get<std::vector<nlohmann::json>>();
             if (!data.empty()) {
-                thing.printerSettings = PrinterSettings::fromJson(data[0]);
+                thing.printerSettings = ThingiverseClient::printerSettingsFromJson(data[0]);
             }
         } else {
-            thing.details.emplace_back(DetailsTextPart::fromJson(item));
+            thing.details.emplace_back(ThingiverseClient::detailsTextPartFromJson(item));
         }
     }
 
     return thing;
 }
 
-Thing Thing::fromSearchJson(const nlohmann::json &json) {
+Thing ThingiverseClient::thingFromSearchJson(const nlohmann::json &json) {
     auto thing = Thing();
     thing.id = json["id"];
     thing.name = json["name"];
@@ -58,7 +58,7 @@ Thing Thing::fromSearchJson(const nlohmann::json &json) {
     return thing;
 }
 
-DetailsTextPart DetailsTextPart::fromJson(const nlohmann::json &json) {
+DetailsTextPart ThingiverseClient::detailsTextPartFromJson(const nlohmann::json &json) {
     auto part = DetailsTextPart();
     part.type = json["type"];
     part.name = json["name"];
@@ -71,7 +71,7 @@ DetailsTextPart DetailsTextPart::fromJson(const nlohmann::json &json) {
     return part;
 }
 
-PrinterSettings PrinterSettings::fromJson(const nlohmann::json &json) {
+PrinterSettings ThingiverseClient::printerSettingsFromJson(const nlohmann::json &json) {
     auto settings = PrinterSettings();
     settings.infill = json["infill"];
     settings.printer = json["printer"];

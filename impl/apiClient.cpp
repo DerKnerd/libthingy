@@ -2,7 +2,7 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "../thingiverseClient.h"
+#include "../libthingy.h"
 
 thingy::ThingiverseClient::ThingiverseClient(std::string apiKey) : apiKey(std::move(apiKey)) {}
 
