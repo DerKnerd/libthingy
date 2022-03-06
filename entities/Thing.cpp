@@ -3,8 +3,12 @@
 //
 
 #include "Thing.h"
+#include "../helper.h"
 
-thingy::entities::Thing thingy::entities::Thing::fromJson(const nlohmann::json &json) {
+using namespace thingy;
+using namespace entities;
+
+Thing Thing::fromJson(const nlohmann::json &json) {
     auto thing = Thing();
     thing.id = json["id"];
     thing.name = json["name"];
@@ -23,11 +27,23 @@ thingy::entities::Thing thingy::entities::Thing::fromJson(const nlohmann::json &
     thing.viewCount = json["view_count"];
     thing.makeCount = json["make_count"];
     thing.allowDerivatives = json["allows_derivatives"];
+    thing.defaultImage = Image::fromJson(json["default_image"]);
+
+    for (const auto &item: json["details_parts"].get<std::vector<nlohmann::json>>()) {
+        if (item["type"] == "settings" && !item["data"].empty()) {
+            auto data = item["data"].get<std::vector<nlohmann::json>>();
+            if (!data.empty()) {
+                thing.printerSettings = PrinterSettings::fromJson(data[0]);
+            }
+        } else {
+            thing.details.emplace_back(DetailsTextPart::fromJson(item));
+        }
+    }
 
     return thing;
 }
 
-thingy::entities::Thing thingy::entities::Thing::fromSearchJson(const nlohmann::json &json) {
+Thing Thing::fromSearchJson(const nlohmann::json &json) {
     auto thing = Thing();
     thing.id = json["id"];
     thing.name = json["name"];
@@ -39,4 +55,32 @@ thingy::entities::Thing thingy::entities::Thing::fromSearchJson(const nlohmann::
     thing.makeCount = json["make_count"];
 
     return thing;
+}
+
+DetailsTextPart DetailsTextPart::fromJson(const nlohmann::json &json) {
+    auto part = DetailsTextPart();
+    part.type = json["type"];
+    part.name = json["name"];
+    if (json.contains("data")) {
+        for (const auto &item: json["data"].get<std::vector<nlohmann::json>>()) {
+            part.contentParts.emplace_back(item["content"]);
+        }
+    }
+
+    return part;
+}
+
+PrinterSettings PrinterSettings::fromJson(const nlohmann::json &json) {
+    auto settings = PrinterSettings();
+    settings.infill = json["infill"];
+    settings.printer = json["printer"];
+    settings.resolution = json["resolution"];
+    if (json.contains("rafts") && toLower(json["rafts"]) == "yes") {
+        settings.rafts = true;
+    }
+    if (json.contains("supports") && toLower(json["supports"]) == "yes") {
+        settings.supports = true;
+    }
+
+    return settings;
 }

@@ -4,6 +4,7 @@
 
 #include "../thingiverseClient.h"
 #include "apiKey.h"
+#include "../helper.h"
 
 int main(int argc, char *argv[]) {
     auto client = thingy::ThingiverseClient(API_KEY);
@@ -25,9 +26,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    auto firstName = things[0].name;
-    std::transform(firstName.begin(), firstName.end(), firstName.begin(),
-                   [](unsigned char c) { return std::tolower(c); });
+    auto firstName = thingy::toLower(things[0].name);
     if (!firstName.contains("filament")) {
         return 1;
     }

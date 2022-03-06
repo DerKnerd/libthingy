@@ -1,4 +1,4 @@
-file(GLOB SOURCES thingiverseClient.h thingiverseClient.cpp impl/*.cpp entities/*.cpp)
+file(GLOB SOURCES thingiverseClient.h thingiverseClient.cpp helper.cpp impl/*.cpp entities/*.cpp)
 
 add_executable(libthingy_test_get_thing ${SOURCES} tests/testGetThing.cpp)
 add_executable(libthingy_test_get_things ${SOURCES} tests/testGetThings.cpp)

@@ -25,6 +25,9 @@ int main(int argc, char *argv[]) {
     if (thing.downloadCount == 0) { return 1; }
     if (thing.viewCount == 0) { return 1; }
     if (thing.makeCount == 0) { return 1; }
+    if (thing.printerSettings.infill.empty()) { return 1; }
+    if (thing.defaultImage.name.empty()) { return 1; }
+    if (thing.details.empty()) { return 1; }
 
     return 0;
 }

@@ -7,8 +7,29 @@
 
 #include <nlohmann/json.hpp>
 #include <string>
+#include "Image.h"
 
 namespace thingy::entities {
+    class DetailsTextPart {
+    public:
+        std::string type;
+        std::string name;
+        std::vector<std::string> contentParts;
+
+        static DetailsTextPart fromJson(const nlohmann::json &json);
+    };
+
+    class PrinterSettings {
+    public:
+        std::string printer;
+        bool rafts;
+        bool supports;
+        std::string resolution;
+        std::string infill;
+
+        static PrinterSettings fromJson(const nlohmann::json &json);
+    };
+
     class Thing {
     public:
         unsigned long long id;
@@ -28,6 +49,9 @@ namespace thingy::entities {
         unsigned long long viewCount;
         unsigned long long makeCount;
         bool allowDerivatives;
+        std::vector<DetailsTextPart> details;
+        PrinterSettings printerSettings;
+        Image defaultImage;
 
         static Thing fromJson(const nlohmann::json &json);
 
