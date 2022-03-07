@@ -127,12 +127,14 @@ namespace thingy {
         };
     }
 
-    enum SortThingsBy {
+    enum SortBy {
         Relevant,
         Text,
         Popular,
         Makes,
-        Newest
+        Newest,
+        Designs,
+        Followers,
     };
 
     class ThingiverseException : public std::exception {
@@ -176,11 +178,11 @@ namespace thingy {
 
         std::vector<entities::Thing>
         getThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string &keyword = "",
-                  const SortThingsBy &sortBy = SortThingsBy::Relevant);
+                  const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing>
         getThingByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
-                           const std::string &keyword = "", const SortThingsBy &sortBy = SortThingsBy::Relevant);
+                           const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
@@ -195,7 +197,11 @@ namespace thingy {
 
         entities::User getUser(unsigned long long userId);
 
-        entities::User getUser(const std::string& username);
+        entities::User getUser(const std::string &username);
+
+        std::vector<entities::User>
+        getUsers(unsigned int page = 1, unsigned int usersPerPage = 20, const std::string &keyword = "",
+                 const SortBy &sortBy = SortBy::Relevant);
 
     private:
         std::string apiKey;
@@ -206,7 +212,7 @@ namespace thingy {
 
         std::vector<entities::Thing>
         getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                          const SortThingsBy &sortBy, bool hasCategory, unsigned long long categoryId);
+                          const SortBy &sortBy, bool hasCategory, unsigned long long categoryId);
     };
 }
 

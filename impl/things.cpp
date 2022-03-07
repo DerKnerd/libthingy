@@ -69,7 +69,7 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
 
 std::vector<Thing>
 ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                                     const SortThingsBy &sortBy, bool hasCategory, unsigned long long categoryId) {
+                                     const SortBy &sortBy, bool hasCategory, unsigned long long categoryId) {
     if (page == 0) {
         page = 1;
     }
@@ -115,13 +115,13 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
 
 std::vector<Thing>
 ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                             const SortThingsBy &sortBy) {
+                             const SortBy &sortBy) {
     return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0);
 
 }
 
 std::vector<entities::Thing>
 ThingiverseClient::getThingByCategory(unsigned long long categoryId, unsigned int page, unsigned int thingsPerPage,
-                                      const std::string &keyword, const SortThingsBy &sortBy) {
+                                      const std::string &keyword, const SortBy &sortBy) {
     return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId);
 }

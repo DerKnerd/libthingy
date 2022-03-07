@@ -8,8 +8,8 @@ thingy::entities::User thingy::ThingiverseClient::userFromCreatorJson(const nloh
     auto user = thingy::entities::User();
     user.id = json["id"];
     user.username = json["name"];
-    user.firstName = json["first_name"];
-    user.lastName = json["last_name"];
+    user.firstName = json["first_name"].is_null() ? "" : json["first_name"];
+    user.lastName = json["last_name"].is_null() ? "" : json["last_name"];
     user.publicUrl = json["public_url"];
     user.thumbnail = json["thumbnail"];
     user.countOfFollowers = json["count_of_followers"];
