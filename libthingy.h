@@ -125,6 +125,20 @@ namespace thingy {
             Image defaultImage;
             User creator;
         };
+
+        class Collection {
+        public:
+            unsigned long long id;
+            std::string name;
+            std::string description;
+            std::string added;
+            std::string modified;
+            User creator;
+            unsigned long long count;
+            std::string previewImage;
+            std::string absoluteUrl;
+            std::string thumbnail;
+        };
     }
 
     enum SortBy {
@@ -171,6 +185,8 @@ namespace thingy {
 
         entities::Category categoryFromThingJson(const nlohmann::json &json);
 
+        entities::Collection collectionFromSearchJson(const nlohmann::json &json);
+
     public:
         explicit ThingiverseClient(std::string apiKey);
 
@@ -185,7 +201,7 @@ namespace thingy {
                             const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing>
-        getThingsByUser(const std::string& username, unsigned int page = 1, unsigned int thingsPerPage = 20,
+        getThingsByUser(const std::string &username, unsigned int page = 1, unsigned int thingsPerPage = 20,
                         const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
@@ -207,6 +223,10 @@ namespace thingy {
         getUsers(unsigned int page = 1, unsigned int usersPerPage = 20, const std::string &keyword = "",
                  const SortBy &sortBy = SortBy::Relevant);
 
+        std::vector<entities::Collection>
+        getCollectionsByUser(const std::string &username, unsigned int page = 1, unsigned int collectionsPerPage = 20,
+                             const std::string &keyword = "", const SortBy &sortBy = SortBy::Popular);
+
     private:
         std::string apiKey;
 
@@ -217,7 +237,11 @@ namespace thingy {
         std::vector<entities::Thing>
         getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
                           const SortBy &sortBy, bool hasCategory, unsigned long long categoryId, bool hasUser,
-                          const std::string& username);
+                          const std::string &username);
+
+        std::vector<entities::Collection>
+        getCollectionsInternal(unsigned int page, unsigned int collectionsPerPage, const std::string &keyword,
+                               const SortBy &sortBy, bool hasUser, const std::string &username);
     };
 }
 

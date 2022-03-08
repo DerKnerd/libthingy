@@ -70,7 +70,7 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
 std::vector<Thing>
 ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
                                      const SortBy &sortBy, bool hasCategory, unsigned long long categoryId,
-                                     bool hasUser, const std::string& username) {
+                                     bool hasUser, const std::string &username) {
     if (page == 0) {
         page = 1;
     }
@@ -89,7 +89,7 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
 
     std::string path = "search/" + keyword;
     if (hasUser) {
-        path = username + "/search/" + keyword;
+        path = "users/" + username + "/search/" + keyword;
     }
     switch (sortBy) {
         case Relevant:
@@ -133,7 +133,7 @@ ThingiverseClient::getThingsByCategory(unsigned long long categoryId, unsigned i
 }
 
 std::vector<entities::Thing>
-ThingiverseClient::getThingsByUser(const std::string& username, unsigned int page, unsigned int thingsPerPage,
+ThingiverseClient::getThingsByUser(const std::string &username, unsigned int page, unsigned int thingsPerPage,
                                    const std::string &keyword, const SortBy &sortBy) {
     return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, username);
 }

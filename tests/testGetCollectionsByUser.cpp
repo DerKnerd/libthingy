@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
     auto client = thingy::ThingiverseClient(API_KEY);
-    auto things = client.getThingsByUser("mishkin2");
+    auto things = client.getCollectionsByUser("mishkin2");
     if (things.empty() || things.size() != 20) {
         return 1;
     }
