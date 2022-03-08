@@ -181,8 +181,12 @@ namespace thingy {
                   const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing>
-        getThingByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
-                           const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
+        getThingsByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
+                            const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
+
+        std::vector<entities::Thing>
+        getThingsByUser(const std::string& username, unsigned int page = 1, unsigned int thingsPerPage = 20,
+                        const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
@@ -212,7 +216,8 @@ namespace thingy {
 
         std::vector<entities::Thing>
         getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                          const SortBy &sortBy, bool hasCategory, unsigned long long categoryId);
+                          const SortBy &sortBy, bool hasCategory, unsigned long long categoryId, bool hasUser,
+                          const std::string& username);
     };
 }
 

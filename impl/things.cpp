@@ -69,7 +69,8 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
 
 std::vector<Thing>
 ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                                     const SortBy &sortBy, bool hasCategory, unsigned long long categoryId) {
+                                     const SortBy &sortBy, bool hasCategory, unsigned long long categoryId,
+                                     bool hasUser, const std::string& username) {
     if (page == 0) {
         page = 1;
     }
@@ -84,6 +85,11 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
     };
     if (hasCategory) {
         parameters["category_id"] = std::to_string(categoryId);
+    }
+
+    std::string path = "search/" + keyword;
+    if (hasUser) {
+        path = username + "/search/" + keyword;
     }
     switch (sortBy) {
         case Relevant:
@@ -103,7 +109,7 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
             break;
     }
 
-    auto json = sendRequest("search/" + keyword, parameters);
+    auto json = sendRequest(path, parameters);
 
     auto result = std::vector<Thing>();
     for (const auto &item: json["hits"].get<std::vector<nlohmann::json>>()) {
@@ -116,12 +122,18 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
 std::vector<Thing>
 ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
                              const SortBy &sortBy) {
-    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0);
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, "");
 
 }
 
 std::vector<entities::Thing>
-ThingiverseClient::getThingByCategory(unsigned long long categoryId, unsigned int page, unsigned int thingsPerPage,
-                                      const std::string &keyword, const SortBy &sortBy) {
-    return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId);
+ThingiverseClient::getThingsByCategory(unsigned long long categoryId, unsigned int page, unsigned int thingsPerPage,
+                                       const std::string &keyword, const SortBy &sortBy) {
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId, false, "");
+}
+
+std::vector<entities::Thing>
+ThingiverseClient::getThingsByUser(const std::string& username, unsigned int page, unsigned int thingsPerPage,
+                                   const std::string &keyword, const SortBy &sortBy) {
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, username);
 }

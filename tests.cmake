@@ -8,6 +8,7 @@ add_executable(libthingy_test_get_images_by_thing ${SOURCES} tests/testGetImages
 add_executable(libthingy_test_get_files_by_thing ${SOURCES} tests/testGetFilesByThing.cpp)
 add_executable(libthingy_test_get_categories_by_thing ${SOURCES} tests/testGetCategoriesByThing.cpp)
 add_executable(libthingy_test_get_things_by_category ${SOURCES} tests/testGetThingsByCategory.cpp)
+add_executable(libthingy_test_get_things_by_user ${SOURCES} tests/testGetThingsByUser.cpp)
 add_executable(libthingy_test_get_user ${SOURCES} tests/testGetUser.cpp)
 add_executable(libthingy_test_get_users ${SOURCES} tests/testGetUsers.cpp)
 
@@ -19,6 +20,7 @@ add_test(NAME libthingy_test_get_images_by_thing COMMAND libthingy_test_get_imag
 add_test(NAME libthingy_test_get_files_by_thing COMMAND libthingy_test_get_files_by_thing)
 add_test(NAME libthingy_test_get_categories_by_thing COMMAND libthingy_test_get_categories_by_thing)
 add_test(NAME libthingy_test_get_things_by_category COMMAND libthingy_test_get_things_by_category)
+add_test(NAME libthingy_test_get_things_by_user COMMAND libthingy_test_get_things_by_user)
 add_test(NAME libthingy_test_get_user COMMAND libthingy_test_get_user)
 add_test(NAME libthingy_test_get_users COMMAND libthingy_test_get_users)
 
@@ -30,5 +32,6 @@ target_link_libraries(libthingy_test_get_images_by_thing PUBLIC OpenSSL::SSL htt
 target_link_libraries(libthingy_test_get_files_by_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_categories_by_thing PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_things_by_category PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy_test_get_things_by_user PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_user PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_users PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
