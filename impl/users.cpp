@@ -53,3 +53,29 @@ thingy::ThingiverseClient::getUsers(unsigned int page, unsigned int usersPerPage
 
     return result;
 }
+
+std::vector<thingy::entities::Thing>
+thingy::ThingiverseClient::getLikesByUser(const std::string &username, unsigned int page, unsigned int likesPerPage) {
+    if (page == 0) {
+        page = 1;
+    }
+    if (likesPerPage == 0) {
+        likesPerPage = 1;
+    }
+
+    std::map<std::string, std::string> parameters = {
+            {"page",     std::to_string(page)},
+            {"per_page", std::to_string(likesPerPage)},
+    };
+
+    std::string path = "users/" + username + "/likes";
+
+    auto json = sendRequest(path, parameters);
+
+    auto result = std::vector<thingy::entities::Thing>();
+    for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(thingFromSearchJson(item));
+    }
+
+    return result;
+}

@@ -227,6 +227,9 @@ namespace thingy {
         getCollectionsByUser(const std::string &username, unsigned int page = 1, unsigned int collectionsPerPage = 20,
                              const std::string &keyword = "", const SortBy &sortBy = SortBy::Popular);
 
+        std::vector<entities::Thing>
+        getLikesByUser(const std::string &username, unsigned int page = 1, unsigned int likesPerPage = 20);
+
     private:
         std::string apiKey;
 
