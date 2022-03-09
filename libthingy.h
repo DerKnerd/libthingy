@@ -138,6 +138,9 @@ namespace thingy {
             std::string previewImage;
             std::string absoluteUrl;
             std::string thumbnail;
+            std::string thumbnail1;
+            std::string thumbnail2;
+            std::string thumbnail3;
         };
     }
 
@@ -167,9 +170,6 @@ namespace thingy {
 
         entities::Thing thingFromSearchJson(const nlohmann::json &json);
 
-        entities::User userFromJson(const nlohmann::json &json);
-
-        entities::User userFromCreatorJson(const nlohmann::json &json);
 
         entities::TwitterAccount twitterAccountFromJson(const nlohmann::json &json);
 
@@ -177,15 +177,25 @@ namespace thingy {
 
         entities::DetailsTextPart detailsTextPartFromJson(const nlohmann::json &json);
 
+        entities::User userFromJson(const nlohmann::json &json);
+
+        entities::User userFromCreatorJson(const nlohmann::json &json);
+
+
         entities::File fileFromJson(const nlohmann::json &json);
+
 
         entities::Image imageFromJson(const nlohmann::json &json);
 
         entities::ImageSize imageSizeFromJson(const nlohmann::json &json);
 
+
         entities::Category categoryFromThingJson(const nlohmann::json &json);
 
+
         entities::Collection collectionFromSearchJson(const nlohmann::json &json);
+
+        entities::Collection collectionFromJson(const nlohmann::json &json);
 
     public:
         explicit ThingiverseClient(std::string apiKey);
@@ -223,12 +233,15 @@ namespace thingy {
         getUsers(unsigned int page = 1, unsigned int usersPerPage = 20, const std::string &keyword = "",
                  const SortBy &sortBy = SortBy::Relevant);
 
+        std::vector<entities::Thing>
+        getLikesByUser(const std::string &username, unsigned int page = 1, unsigned int likesPerPage = 20);
+
+
+        entities::Collection getCollection(unsigned long long id);
+
         std::vector<entities::Collection>
         getCollectionsByUser(const std::string &username, unsigned int page = 1, unsigned int collectionsPerPage = 20,
                              const std::string &keyword = "", const SortBy &sortBy = SortBy::Popular);
-
-        std::vector<entities::Thing>
-        getLikesByUser(const std::string &username, unsigned int page = 1, unsigned int likesPerPage = 20);
 
     private:
         std::string apiKey;

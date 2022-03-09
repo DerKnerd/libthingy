@@ -23,7 +23,7 @@ thingy::ThingiverseClient::getCollectionsInternal(unsigned int page, unsigned in
 
     std::string path = "search/" + keyword;
     if (hasUser) {
-        path ="users/"+ username + "/search/" + keyword;
+        path = "users/" + username + "/search/" + keyword;
     }
     switch (sortBy) {
         case Popular:
@@ -50,4 +50,10 @@ thingy::ThingiverseClient::getCollectionsByUser(const std::string &username, uns
                                                 unsigned int collectionsPerPage, const std::string &keyword,
                                                 const SortBy &sortBy) {
     return getCollectionsInternal(page, collectionsPerPage, keyword, sortBy, true, username);
+}
+
+thingy::entities::Collection thingy::ThingiverseClient::getCollection(unsigned long long id) {
+    auto result = sendRequest("collections/" + std::to_string(id));
+
+    return collectionFromJson(result);
 }

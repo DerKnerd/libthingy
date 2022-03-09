@@ -19,3 +19,12 @@ thingy::entities::Collection thingy::ThingiverseClient::collectionFromSearchJson
 
     return collection;
 }
+
+thingy::entities::Collection thingy::ThingiverseClient::collectionFromJson(const nlohmann::json &json) {
+    auto collection = collectionFromSearchJson(json);
+    collection.thumbnail1 = json["thumbnail_1"];
+    collection.thumbnail2 = json["thumbnail_2"];
+    collection.thumbnail3 = json["thumbnail_3"];
+
+    return collection;
+}
