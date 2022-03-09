@@ -243,6 +243,10 @@ namespace thingy {
         getCollectionsByUser(const std::string &username, unsigned int page = 1, unsigned int collectionsPerPage = 20,
                              const std::string &keyword = "", const SortBy &sortBy = SortBy::Popular);
 
+        std::vector<entities::Collection>
+        getCollections(unsigned int page = 1, unsigned int collectionsPerPage = 20, const std::string &keyword = "",
+                       const SortBy &sortBy = SortBy::Popular);
+
     private:
         std::string apiKey;
 

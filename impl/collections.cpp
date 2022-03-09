@@ -44,12 +44,17 @@ thingy::ThingiverseClient::getCollectionsInternal(unsigned int page, unsigned in
     return result;
 }
 
-
 std::vector<thingy::entities::Collection>
 thingy::ThingiverseClient::getCollectionsByUser(const std::string &username, unsigned int page,
                                                 unsigned int collectionsPerPage, const std::string &keyword,
                                                 const SortBy &sortBy) {
     return getCollectionsInternal(page, collectionsPerPage, keyword, sortBy, true, username);
+}
+
+std::vector<thingy::entities::Collection>
+thingy::ThingiverseClient::getCollections(unsigned int page, unsigned int collectionsPerPage,
+                                          const std::string &keyword, const SortBy &sortBy) {
+    return getCollectionsInternal(page, collectionsPerPage, keyword, sortBy, false, "");
 }
 
 thingy::entities::Collection thingy::ThingiverseClient::getCollection(unsigned long long id) {

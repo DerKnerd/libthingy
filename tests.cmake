@@ -13,6 +13,7 @@ add_executable(libthingy_test_get_users tests/testGetUsers.cpp)
 add_executable(libthingy_test_get_likes_by_user tests/testGetLikesByUser.cpp)
 
 add_executable(libthingy_test_get_collections_by_user tests/testGetCollectionsByUser.cpp)
+add_executable(libthingy_test_get_collections tests/testGetCollections.cpp)
 add_executable(libthingy_test_get_collection tests/testGetCollection.cpp)
 
 
@@ -31,6 +32,7 @@ add_test(NAME libthingy_test_get_users COMMAND libthingy_test_get_users)
 add_test(NAME libthingy_test_get_likes_by_user COMMAND libthingy_test_get_likes_by_user)
 
 add_test(NAME libthingy_test_get_collections_by_user COMMAND libthingy_test_get_collections_by_user)
+add_test(NAME libthingy_test_get_collections COMMAND libthingy_test_get_collections)
 add_test(NAME libthingy_test_get_collection COMMAND libthingy_test_get_collection)
 
 
@@ -49,4 +51,5 @@ target_link_libraries(libthingy_test_get_users PUBLIC libthingy::libthingy OpenS
 target_link_libraries(libthingy_test_get_likes_by_user PUBLIC libthingy::libthingy OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 
 target_link_libraries(libthingy_test_get_collections_by_user PUBLIC libthingy::libthingy OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy_test_get_collections PUBLIC libthingy::libthingy OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
 target_link_libraries(libthingy_test_get_collection PUBLIC libthingy::libthingy OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
