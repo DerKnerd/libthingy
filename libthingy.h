@@ -19,6 +19,9 @@ namespace thingy {
             std::string slug;
             unsigned long long count;
             unsigned long long id;
+            std::string thumbnail;
+            std::string previewImage;
+            std::vector<Category> children;
         };
 
         class ImageSize {
@@ -198,6 +201,8 @@ namespace thingy {
 
         entities::Category categoryFromThingJson(const nlohmann::json &json);
 
+        entities::Category categoryFromJson(const nlohmann::json &json);
+
 
         entities::Collection collectionFromSearchJson(const nlohmann::json &json);
 
@@ -214,7 +219,7 @@ namespace thingy {
 
         std::vector<entities::Thing>
         getFeaturedThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string &keyword = "",
-                  const SortBy &sortBy = SortBy::Relevant);
+                          const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing>
         getThingsByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
@@ -235,8 +240,6 @@ namespace thingy {
         std::vector<entities::Image> getImagesByThing(unsigned long long thingId);
 
         std::vector<entities::File> getFilesByThing(unsigned long long thingId);
-
-        std::vector<entities::Category> getCategoriesByThing(unsigned long long thingId);
 
 
         entities::User getUser(unsigned long long userId);
@@ -260,6 +263,11 @@ namespace thingy {
         std::vector<entities::Collection>
         getCollections(unsigned int page = 1, unsigned int collectionsPerPage = 20, const std::string &keyword = "",
                        const SortBy &sortBy = SortBy::Popular);
+
+
+        std::vector<entities::Category> getCategoriesByThing(unsigned long long thingId);
+
+        std::vector<entities::Category> getCategories(unsigned int page = 1, unsigned int categoriesPerPage = 20);
 
     private:
         std::string apiKey;
