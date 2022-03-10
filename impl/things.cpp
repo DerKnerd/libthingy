@@ -70,7 +70,7 @@ std::vector<Category> ThingiverseClient::getCategoriesByThing(unsigned long long
 std::vector<Thing>
 ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
                                      const SortBy &sortBy, bool hasCategory, unsigned long long categoryId,
-                                     bool hasUser, const std::string &username) {
+                                     bool hasUser, const std::string &username, bool isFeatured) {
     if (page == 0) {
         page = 1;
     }
@@ -85,6 +85,9 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
     };
     if (hasCategory) {
         parameters["category_id"] = std::to_string(categoryId);
+    }
+    if (isFeatured) {
+        parameters["is_featured"] = "1";
     }
 
     std::string path = "search/" + keyword;
@@ -122,20 +125,20 @@ ThingiverseClient::getThingsInternal(unsigned int page, unsigned int thingsPerPa
 std::vector<Thing>
 ThingiverseClient::getThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
                              const SortBy &sortBy) {
-    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, "");
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, "", false);
 
 }
 
 std::vector<entities::Thing>
 ThingiverseClient::getThingsByCategory(unsigned long long categoryId, unsigned int page, unsigned int thingsPerPage,
                                        const std::string &keyword, const SortBy &sortBy) {
-    return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId, false, "");
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, true, categoryId, false, "", false);
 }
 
 std::vector<entities::Thing>
 ThingiverseClient::getThingsByUser(const std::string &username, unsigned int page, unsigned int thingsPerPage,
                                    const std::string &keyword, const SortBy &sortBy) {
-    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, username);
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, username, false);
 }
 
 std::vector<entities::Thing>
@@ -170,4 +173,10 @@ ThingiverseClient::getThingsByCollection(unsigned long long collectionId, const 
     }
 
     return result;
+}
+
+std::vector<entities::Thing>
+ThingiverseClient::getFeaturedThings(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
+                                     const SortBy &sortBy) {
+    return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, "", true);
 }

@@ -213,6 +213,10 @@ namespace thingy {
                   const SortBy &sortBy = SortBy::Relevant);
 
         std::vector<entities::Thing>
+        getFeaturedThings(unsigned int page = 1, unsigned int thingsPerPage = 20, const std::string &keyword = "",
+                  const SortBy &sortBy = SortBy::Relevant);
+
+        std::vector<entities::Thing>
         getThingsByCategory(unsigned long long categoryId, unsigned int page = 1, unsigned int thingsPerPage = 20,
                             const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
 
@@ -266,8 +270,8 @@ namespace thingy {
 
         std::vector<entities::Thing>
         getThingsInternal(unsigned int page, unsigned int thingsPerPage, const std::string &keyword,
-                          const SortBy &sortBy, bool hasCategory, unsigned long long categoryId, bool hasUser,
-                          const std::string &username);
+                          const SortBy &sortBy, bool hasCategory, unsigned long long categoryId,
+                          bool hasUser, const std::string &username, bool isFeatured);
 
         std::vector<entities::Collection>
         getCollectionsInternal(unsigned int page, unsigned int collectionsPerPage, const std::string &keyword,
