@@ -137,3 +137,37 @@ ThingiverseClient::getThingsByUser(const std::string &username, unsigned int pag
                                    const std::string &keyword, const SortBy &sortBy) {
     return getThingsInternal(page, thingsPerPage, keyword, sortBy, false, 0, false, username);
 }
+
+std::vector<entities::Thing>
+ThingiverseClient::getThingsByCollection(unsigned long long collectionId, const SortBy &sortBy,
+                                         const SortDirection &sortDirection) {
+    std::map<std::string, std::string> parameters = {};
+
+    std::string path = "collections/" + std::to_string(collectionId) + "/things";
+    switch (sortBy) {
+        case Added:
+            parameters["sort"] = "date";
+            break;
+        case ThingName:
+            parameters["sort"] = "name";
+            break;
+    }
+
+    switch (sortDirection) {
+        case Asc:
+            parameters["order"] = "asc";
+            break;
+        case Desc:
+            parameters["order"] = "desc";
+            break;
+    }
+
+    auto json = sendRequest(path, parameters);
+
+    auto result = std::vector<Thing>();
+    for (const auto &item: json.get<std::vector<nlohmann::json>>()) {
+        result.emplace_back(thingFromSearchJson(item));
+    }
+
+    return result;
+}

@@ -152,6 +152,12 @@ namespace thingy {
         Newest,
         Designs,
         Followers,
+        ThingName,
+        Added
+    };
+    enum SortDirection {
+        Asc,
+        Desc
     };
 
     class ThingiverseException : public std::exception {
@@ -213,6 +219,10 @@ namespace thingy {
         std::vector<entities::Thing>
         getThingsByUser(const std::string &username, unsigned int page = 1, unsigned int thingsPerPage = 20,
                         const std::string &keyword = "", const SortBy &sortBy = SortBy::Relevant);
+
+        std::vector<entities::Thing>
+        getThingsByCollection(unsigned long long collectionId, const SortBy &sortBy = SortBy::ThingName,
+                              const SortDirection &sortDirection = SortDirection::Asc);
 
         std::vector<entities::Thing> getThingAncestors(unsigned long long thingId);
 
