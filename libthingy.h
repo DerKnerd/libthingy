@@ -269,6 +269,8 @@ namespace thingy {
 
         std::vector<entities::Category> getCategories(unsigned int page = 1, unsigned int categoriesPerPage = 20);
 
+        entities::Category getCategory(const std::string &slug);
+
     private:
         std::string apiKey;
 

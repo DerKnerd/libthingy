@@ -15,10 +15,12 @@ thingy::entities::Category thingy::ThingiverseClient::categoryFromThingJson(cons
 }
 
 thingy::entities::Category thingy::ThingiverseClient::categoryFromJson(const nlohmann::json &json) {
-    auto category = categoryFromThingJson(json);
+    auto category = thingy::entities::Category();
+    category.name = json["name"];
+    category.count = json["count"];
     category.thumbnail = json["thumbnail"];
     category.previewImage = json["preview_image"];
-    for (const auto &item:json["children"].get<std::vector<nlohmann::json>>()) {
+    for (const auto &item: json["children"].get<std::vector<nlohmann::json>>()) {
         category.children.emplace_back(categoryFromThingJson(item));
     }
 

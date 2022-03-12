@@ -7,7 +7,7 @@
 std::vector<thingy::entities::Category>
 thingy::ThingiverseClient::getCategories(unsigned int page, unsigned int categoriesPerPage) {
     auto result = sendRequest("categories", {
-            {"page", std::to_string(page)},
+            {"page",     std::to_string(page)},
             {"per_page", std::to_string(categoriesPerPage)}
     });
 
@@ -17,4 +17,12 @@ thingy::ThingiverseClient::getCategories(unsigned int page, unsigned int categor
     }
 
     return categories;
+}
+
+thingy::entities::Category thingy::ThingiverseClient::getCategory(const std::string &slug) {
+    auto result = sendRequest("categories/" + slug);
+    auto category = categoryFromJson(result);
+    category.slug = slug;
+
+    return category;
 }
