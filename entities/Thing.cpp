@@ -31,7 +31,7 @@ Thing ThingiverseClient::thingFromJson(const nlohmann::json &json) {
     thing.creator = ThingiverseClient::userFromCreatorJson(json["creator"]);
 
     for (const auto &item: json["details_parts"].get<std::vector<nlohmann::json>>()) {
-        if (item["type"] == "settings" && !item["data"].empty()) {
+        if (item["type"] == "settings" && item.contains("data") && !item["data"].empty()) {
             auto data = item["data"].get<std::vector<nlohmann::json>>();
             if (!data.empty()) {
                 thing.printerSettings = ThingiverseClient::printerSettingsFromJson(data[0]);
