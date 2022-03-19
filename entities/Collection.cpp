@@ -2,7 +2,7 @@
 // Created by imanuel on 08.03.22.
 //
 
-#include "../../libthingy.h"
+#include "../libthingy.h"
 
 thingy::entities::Collection thingy::ThingiverseClient::collectionFromSearchJson(const nlohmann::json &json) {
     auto collection = thingy::entities::Collection();

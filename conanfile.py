@@ -1,19 +1,23 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake
 
 
 class LibThingyConan(ConanFile):
     # Removed a bunch of attributes that are not needed, but you might want to
     # Add them for a real project
     name = "libthingy"
-    version = "0.7"
-    generators = "cmake"
+    version = "0.9"
     # If the source code is going to be in the same repo as the Conan recipe,
     # there is no need to define a `source` method. The source folder can be
     # defined like this
     exports_sources = "*"
+    settings = "os", "compiler", "build_type", "arch"
+    options = {"shared": [True, False]}
+    default_options = {"shared": False}
+    generators = "cmake"
+    requires = ["nlohmann_json/3.10.5", "cpp-httplib/0.10.3", "openssl/3.0.1"]
 
     def build(self):
-        cmake = CMake(self, build_type="Release")
+        cmake = CMake(self)
         # The CMakeLists.txt file must be in `source_folder`
         cmake.configure(source_folder=".")
         cmake.build()

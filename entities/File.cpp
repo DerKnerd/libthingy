@@ -2,7 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
-#include "../../libthingy.h"
+#include "../libthingy.h"
 
 thingy::entities::File thingy::ThingiverseClient::fileFromJson(const nlohmann::json &json) {
     auto file = thingy::entities::File();

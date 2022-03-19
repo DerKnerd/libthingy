@@ -119,3 +119,8 @@ CTestTestfile.cmake
 _deps
 
 tests/apiKey.h
+/conan.lock
+/conanbuildinfo.cmake
+/conanbuildinfo.txt
+/conaninfo.txt
+/graph_info.json

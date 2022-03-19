@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     if (thing.publicUrl.empty()) { return 1; }
     if (thing.likeCount == 0) { return 1; }
     if (thing.commentCount == 0) { return 1; }
-    if (thing.makeCount != 0) { return 1; }
+    if (thing.makeCount == 0) { return 1; }
 
     things = client.getThingDerivatives(5242411);
     if (!things.empty()) {

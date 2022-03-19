@@ -2,7 +2,7 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "../../libthingy.h"
+#include "../libthingy.h"
 
 thingy::entities::ImageSize thingy::ThingiverseClient::imageSizeFromJson(const nlohmann::json &json) {
     auto imageSize = thingy::entities::ImageSize();

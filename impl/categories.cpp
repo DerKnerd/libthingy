@@ -2,7 +2,7 @@
 // Created by imanuel on 10.03.22.
 //
 
-#include "../../libthingy.h"
+#include "../libthingy.h"
 
 std::vector<thingy::entities::Category>
 thingy::ThingiverseClient::getCategories(unsigned int page, unsigned int categoriesPerPage) {

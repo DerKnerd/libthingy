@@ -2,7 +2,7 @@
 // Created by imanuel on 08.03.22.
 //
 
-#include "../../libthingy.h"
+#include "../libthingy.h"
 
 std::vector<thingy::entities::Collection>
 thingy::ThingiverseClient::getCollectionsInternal(unsigned int page, unsigned int collectionsPerPage,
