@@ -2,7 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
-#include "../libthingy.h"
+#include "../../libthingy.h"
 
 thingy::entities::User thingy::ThingiverseClient::userFromCreatorJson(const nlohmann::json &json) {
     auto user = thingy::entities::User();

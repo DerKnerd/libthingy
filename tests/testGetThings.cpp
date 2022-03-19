@@ -26,11 +26,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    auto firstName = thingy::toLower(things[0].name);
-    if (!firstName.contains("filament")) {
-        return 1;
-    }
-
     things = client.getThings(1, 2);
     if (things.empty() || things.size() != 2) {
         return 1;

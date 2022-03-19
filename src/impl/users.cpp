@@ -2,7 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
-#include "../libthingy.h"
+#include "../../libthingy.h"
 
 thingy::entities::User thingy::ThingiverseClient::getUser(unsigned long long userId) {
     auto json = sendRequest("users/" + std::to_string(userId));

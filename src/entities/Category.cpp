@@ -2,7 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
-#include "../libthingy.h"
+#include "../../libthingy.h"
 
 thingy::entities::Category thingy::ThingiverseClient::categoryFromThingJson(const nlohmann::json &json) {
     auto category = thingy::entities::Category();

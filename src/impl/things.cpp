@@ -2,7 +2,7 @@
 // Created by imanuel on 05.03.22.
 //
 
-#include "../libthingy.h"
+#include "../../libthingy.h"
 
 using namespace thingy;
 using namespace entities;

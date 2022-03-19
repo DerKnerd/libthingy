@@ -2,7 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
-#include "../helper.h"
+#include "../../helper.h"
 
 std::string thingy::toLower(std::string string) {
     auto result = std::string("");

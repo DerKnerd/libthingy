@@ -1,13 +1,19 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.16)
 project(libthingy CXX)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
 include(./conan.cmake)
 include(CTest)
+
+if (WIN32 OR MINGW)
+    set(options Poco:enable_netssl_win=True Poco:enable_netssl=False)
+else ()
+    set(options Poco:enable_netssl_win=False Poco:enable_netssl=True)
+endif ()
 
 conan_cmake_configure(
         REQUIRES
@@ -30,11 +36,11 @@ find_package(nlohmann_json)
 find_package(httplib)
 find_package(OpenSSL)
 
-file(GLOB SOURCES impl/*.cpp entities/*.cpp)
+file(GLOB SOURCES src/impl/*.cpp src/entities/*.cpp)
 
 add_library(libthingy ${SOURCES})
 add_library(libthingy::libthingy ALIAS libthingy)
 include(tests.cmake)
 
-target_link_libraries(libthingy PUBLIC OpenSSL::SSL httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy PUBLIC OpenSSL::SSL OpenSSL::Crypto httplib::httplib nlohmann_json::nlohmann_json)
 
