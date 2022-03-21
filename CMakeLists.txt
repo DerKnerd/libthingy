@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 project(libthingy CXX)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
@@ -16,6 +18,9 @@ else ()
     set(options Poco:enable_netssl_win=False Poco:enable_netssl=True)
 endif ()
 include(conan.cmake)
+
+conan_add_remote(NAME conan.imanuel.dev
+        URL https://conan.imanuel.dev/artifactory/api/conan/conan-virtual)
 
 if (CONAN_EXPORTED) # in conan local cache
     # standard conan installation, deps will be defined in conanfile.py
@@ -33,7 +38,7 @@ if (CONAN_EXPORTED) # in conan local cache
 
     conan_cmake_install(PATH_OR_REFERENCE .
             BUILD missing
-            REMOTE conancenter
+            REMOTE conan.imanuel.dev
             SETTINGS ${settings}
             OPTIONS ${options})
 else ()
@@ -50,7 +55,7 @@ else ()
 
     conan_cmake_install(PATH_OR_REFERENCE .
             BUILD missing
-            REMOTE conancenter
+            REMOTE conan.imanuel.dev
             SETTINGS ${settings}
             OPTIONS ${options})
 endif ()
