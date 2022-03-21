@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
-if (NOT LIBTHINGY_SKIP_TESTS)
+if (NOT LIBTHINGY_SKIP_TESTS AND NOT CONAN_EXPORTED)
     include(CTest)
 endif ()
 
@@ -68,7 +68,7 @@ file(GLOB SOURCES impl/*.cpp entities/*.cpp)
 
 add_library(libthingy ${SOURCES})
 add_library(libthingy::libthingy ALIAS libthingy)
-if (NOT CONAN_EXPORTED)
+if (NOT LIBTHINGY_SKIP_TESTS AND NOT CONAN_EXPORTED)
     include(tests.cmake)
 endif ()
 
