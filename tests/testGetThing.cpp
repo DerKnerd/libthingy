@@ -7,9 +7,9 @@
 
 int main(int argc, char *argv[]) {
     auto client = thingy::ThingiverseClient(API_KEY);
-    auto thing = client.getThing(2064029);
+    auto thing = client.getThing(1068443);
 
-    if (thing.id != 2064029) { return 1; }
+    if (thing.id != 1068443) { return 1; }
     if (thing.name.empty()) { return 1; }
     if (thing.added.empty()) { return 1; }
     if (thing.thumbnail.empty()) { return 1; }
@@ -25,7 +25,6 @@ int main(int argc, char *argv[]) {
     if (thing.downloadCount == 0) { return 1; }
     if (thing.viewCount == 0) { return 1; }
     if (thing.makeCount == 0) { return 1; }
-    if (thing.printerSettings.infill.empty()) { return 1; }
     if (thing.defaultImage.name.empty()) { return 1; }
     if (thing.details.empty()) { return 1; }
 

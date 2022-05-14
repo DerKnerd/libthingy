@@ -6,17 +6,17 @@
 
 thingy::entities::User thingy::ThingiverseClient::userFromCreatorJson(const nlohmann::json &json) {
     auto user = thingy::entities::User();
-    user.id = json["id"];
-    user.username = json["name"];
-    user.firstName = json["first_name"].is_null() ? "" : json["first_name"];
-    user.lastName = json["last_name"].is_null() ? "" : json["last_name"];
-    user.publicUrl = json["public_url"];
-    user.thumbnail = json["thumbnail"];
-    user.countOfFollowers = json["count_of_followers"];
-    user.countOfFollowing = json["count_of_following"];
-    user.countOfDesigns = json["count_of_designs"];
-    user.acceptsTips = json["accepts_tips"];
-    user.location = json["location"];
+    user.id = json.contains("id") ? json["id"].get<unsigned long long>() : -1;
+    user.username = json.contains("name") ? json["name"] : "";
+    user.firstName = json.contains("first_name") ? json["first_name"].is_null() ? "" : json["first_name"] : "";
+    user.lastName = json.contains("last_name") ? json["last_name"].is_null() ? "" : json["last_name"] : "";
+    user.publicUrl = json.contains("public_url") ? json["public_url"] : "";
+    user.thumbnail = json.contains("thumbnail") ? json["thumbnail"] : "";
+    user.countOfFollowers = json.contains("count_of_followers") ? json["count_of_followers"].get<unsigned long long>() : 0;
+    user.countOfFollowing = json.contains("count_of_following") ? json["count_of_following"].get<unsigned long long>() : 0;
+    user.countOfDesigns = json.contains("count_of_designs") ? json["count_of_designs"].get<unsigned long long>() : 0;
+    user.acceptsTips = json.contains("accepts_tips") && json["accepts_tips"].get<bool>();
+    user.location = json.contains("location") ? json["location"] : "";
     user.cover = json.contains("cover") ? json["cover"] : json["cover_image"];
 
     return user;

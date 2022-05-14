@@ -12,10 +12,14 @@ thingy::entities::File thingy::ThingiverseClient::fileFromJson(const nlohmann::j
     file.url = json["url"];
     file.publicUrl = json["public_url"];
     file.thumbnail = json["thumbnail"];
-    file.defaultImage = imageFromJson(json["default_image"]);
+    if (json.contains("default_image") && !json["default_image"].is_null()) {
+        file.defaultImage = imageFromJson(json["default_image"]);
+    }
     file.date = json["date"];
     file.downloadCount = json["download_count"];
-    file.directUrl = json["direct_url"];
+    if (json.contains("direct_url") && json["direct_url"].is_string()) {
+        file.directUrl = json["direct_url"];
+    }
 
     return file;
 }

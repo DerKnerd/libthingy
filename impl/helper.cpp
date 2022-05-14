@@ -2,6 +2,7 @@
 // Created by imanuel on 06.03.22.
 //
 
+#include <algorithm>
 #include "../helper.h"
 
 std::string thingy::toLower(std::string string) {

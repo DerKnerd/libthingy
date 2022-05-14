@@ -21,6 +21,9 @@ Thing ThingiverseClient::thingFromJson(const nlohmann::json &json) {
     thing.collectCount = json["collect_count"];
     thing.commentCount = json["comment_count"];
     thing.description = json["description"];
+    thing.descriptionHtml = json["description_html"];
+    thing.instructionsHtml = json["instructions_html"];
+    thing.detailsHtml = json["details"];
     thing.license = json["license"];
     thing.fileCount = json["file_count"];
     thing.downloadCount = json["download_count"];
@@ -64,7 +67,8 @@ DetailsTextPart ThingiverseClient::detailsTextPartFromJson(const nlohmann::json 
     part.name = json["name"];
     if (json.contains("data")) {
         for (const auto &item: json["data"].get<std::vector<nlohmann::json>>()) {
-            part.contentParts.emplace_back(item["content"]);
+            part.contentParts.emplace_back(
+                    item.contains("content") && item["content"].is_string() ? item["content"] : "");
         }
     }
 
@@ -73,9 +77,9 @@ DetailsTextPart ThingiverseClient::detailsTextPartFromJson(const nlohmann::json 
 
 PrinterSettings ThingiverseClient::printerSettingsFromJson(const nlohmann::json &json) {
     auto settings = PrinterSettings();
-    settings.infill = json["infill"];
-    settings.printer = json["printer"];
-    settings.resolution = json["resolution"];
+    settings.infill = json.contains("infill") ? json["infill"] : "";
+    settings.printer = json.contains("printer") ? json["printer"] : "";
+    settings.resolution = json.contains("resolution") ? json["resolution"] : "";
     if (json.contains("rafts") && toLower(json["rafts"]) == "yes") {
         settings.rafts = true;
     }

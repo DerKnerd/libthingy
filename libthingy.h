@@ -117,6 +117,9 @@ namespace thingy {
             unsigned long long collectCount;
             unsigned long long commentCount;
             std::string description;
+            std::string descriptionHtml;
+            std::string instructionsHtml;
+            std::string detailsHtml;
             std::string license;
             unsigned long fileCount;
             unsigned long long downloadCount;

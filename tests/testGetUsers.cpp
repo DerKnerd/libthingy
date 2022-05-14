@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
     auto client = thingy::ThingiverseClient(API_KEY);
-    auto users = client.getUsers();
+    auto users = client.getUsers(1);
 
     if (users.empty()) { return 1; }
 

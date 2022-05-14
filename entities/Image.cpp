@@ -15,11 +15,19 @@ thingy::entities::ImageSize thingy::ThingiverseClient::imageSizeFromJson(const n
 
 thingy::entities::Image thingy::ThingiverseClient::imageFromJson(const nlohmann::json &json) {
     auto image = thingy::entities::Image();
-    image.url = json["url"];
-    image.name = json["name"];
-    image.id = json["id"];
-    for (const auto& size: json["sizes"].get<std::vector<nlohmann::json>>()) {
-        image.sizes.emplace_back(imageSizeFromJson(size));
+    if (json.contains("url") && json["url"].is_string()) {
+        image.url = json["url"];
+    }
+    if (json.contains("name") && json["name"].is_string()) {
+        image.name = json["name"];
+    }
+    if (json.contains("id") && json["id"].is_string()) {
+        image.id = json["id"].get<unsigned long long>();
+    }
+    if (json.contains("sizes")) {
+        for (const auto &size: json["sizes"].get<std::vector<nlohmann::json>>()) {
+            image.sizes.emplace_back(imageSizeFromJson(size));
+        }
     }
 
     return image;

@@ -26,21 +26,7 @@ if (CONAN_EXPORTED) # in conan local cache
     # standard conan installation, deps will be defined in conanfile.py
     # and not necessary to call conan again, conan is already running
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_cmake_configure(
-            REQUIRES
-            nlohmann_json/3.10.5
-            cpp-httplib/0.10.3
-            openssl/3.0.1
-            GENERATORS cmake_find_package
-    )
-
-    conan_cmake_autodetect(settings)
-
-    conan_cmake_install(PATH_OR_REFERENCE .
-            BUILD missing
-            REMOTE conan.imanuel.dev
-            SETTINGS ${settings}
-            OPTIONS ${options})
+    conan_basic_setup()
 else ()
     # Make sure to use conanfile.py to define dependencies, to stay consistent
     conan_cmake_configure(
@@ -56,8 +42,7 @@ else ()
     conan_cmake_install(PATH_OR_REFERENCE .
             BUILD missing
             REMOTE conan.imanuel.dev
-            SETTINGS ${settings}
-            OPTIONS ${options})
+            SETTINGS ${settings})
 endif ()
 
 find_package(nlohmann_json)
@@ -72,5 +57,5 @@ if (NOT LIBTHINGY_SKIP_TESTS AND NOT CONAN_EXPORTED)
     include(tests.cmake)
 endif ()
 
-target_link_libraries(libthingy PUBLIC OpenSSL::SSL OpenSSL::Crypto httplib::httplib nlohmann_json::nlohmann_json)
+target_link_libraries(libthingy PRIVATE OpenSSL::SSL OpenSSL::Crypto httplib::httplib nlohmann_json::nlohmann_json)
 
